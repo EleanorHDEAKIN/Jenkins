@@ -44,16 +44,20 @@ pipeline {
             }
             post{
                 success{
-                    mail to: "hooperperson321@gmail.com",
+                    emailext( 
+                        to: "hooperperson321@gmail.com",
                         subject: "Deploy successful",
                         body: "Build was successfully deployed",
                         attachLog: true
+                        )
                 }
                 failure{
-                    mail to: "hooperperson321@gmail.com",
+                    emailext(
+                        to: "hooperperson321@gmail.com",
                         subject: "Deploy failed",
                         body: "Build failed to be deployed",
                         attachLog: true
+                        )
                 }
             }
         }
