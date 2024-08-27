@@ -40,20 +40,20 @@ pipeline {
 
         stage('Deploy to Production'){
             steps{
-                echoddddd "deploy to production server" 
+                echo "deploy to production server" 
             }
             post{
                 success{
                     mail to: "hooperperson321@gmail.com",
                         subject: "Deploy successful",
                         body: "Build was successfully deployed",
-                        attachlog: true
+                        attachLog: true
                 }
                 failure{
                     mail to: "hooperperson321@gmail.com",
                         subject: "Deploy failed",
                         body: "Build failed to be deployed",
-                        attachlog: true
+                        attachLog: true
                 }
             }
         }
