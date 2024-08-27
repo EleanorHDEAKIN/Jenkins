@@ -40,7 +40,7 @@ pipeline {
 
         stage('Deploy to Production'){
             steps{
-                echo "deploy to production server" 
+                echoddd "deploy to production server" 
             }
             post{
                 success{
