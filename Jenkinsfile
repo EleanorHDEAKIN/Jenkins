@@ -1,51 +1,59 @@
 pipeline {
     agent any
-    environment{
-        DIRECTORY_PATH = "./code"
-        TESTING_ENVIRONMENT = "environmentForTesting"
-        PRODUCTION_ENVIRONMENT = "Eleanor"
-    }
     stages{
         stage('Build'){
             steps{
                 echo "fetch the source code from the directory path specified by the environment variable. "
-                echo "compile the code and generate any necessary artifacts"
+                echo "use Maven to compile the code and generate any necessary artifacts"
             }
         }
-        stage('Test'){
+        stage('Unit and Integration Tests'){
             steps{
-                echo "unit tests"
-                echo "integration tests"
-            }
-        }
-
-        stage('Code Quality Check'){
-            steps{
-                echo "check the quality of the code"
+                echo "unit tests using JUnit to ensure functionality"
+                echo "integration tests using Selenium to ensure functionality between components"
             }
         }
 
-        stage('Deploy'){
+        stage('Code Analysis'){
             steps{
-                echo "deploy the application to a testing environment specified by the environment variable"
+                echo "use SonarQube to check code quality"
             }
         }
 
-        stage('Approval'){
+        stage('Security Scan'){
             steps{
-                sleep(10)
+                echo "perform a security scan using OWASP"
+            }
+        }
+
+        stage('Deploy to Staging'){
+            steps{
+                echo "deploy to staging server"
+            }
+        }
+
+        stage('Integration Tests on Staging'){
+            steps{
+                echo "run integration tests on staging using Selenium"
             }
         }
 
         stage('Deploy to Production'){
             steps{
-                echo "deployed to $PRODUCTION_ENVIRONMENT" 
+                echo "deploy to production server" 
             }
             post{
                 success{
                     mail to: "hooperperson321@gmail.com",
                         subject: "Deploy successful",
-                        body: "Build was successfully deployed"
+                        body: "Build was successfully deployed",
+                        attachlog: true
+                }
+                failure{
+                    mail to: "hooperperson321@gmail.com",
+                        subject: "Deploy failed",
+                        body: "Build failed to be deployed",
+                        attachlog: true
                 }
             }
         }
